@@ -1,1 +1,19 @@
-<p>login works!</p>
+<div class="auth-container">
+  <h2>Login</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" formControlName="email" type="email" />
+      <app-error-message [control]="loginForm.get('email')"></app-error-message>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input id="password" formControlName="password" type="password" />
+      <app-error-message [control]="loginForm.get('password')"></app-error-message>
+    </div>
+
+    <button type="submit" [disabled]="loginForm.invalid">Login</button>
+  </form>
+  <p>Don't have an account? <a routerLink="/auth/register">Register</a></p>
+</div>

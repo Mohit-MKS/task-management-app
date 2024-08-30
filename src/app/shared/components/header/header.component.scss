@@ -1,0 +1,14 @@
+.main-header {
+  background: #1b3de8;
+  height: 48px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .heading {
+    color: #fff;
+    font-size: 28px;
+    font-weight: bold;
+  }
+}

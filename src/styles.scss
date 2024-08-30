@@ -16,14 +16,24 @@ body {
 }
 
 /* Track */
-
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
 
 /* Handle */
-
 ::-webkit-scrollbar-thumb {
   background: #aaa;
   border-radius: 15px;
+}
+
+
+.invalid-feedback {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  color: #dc3545;
+  text-transform: capitalize;
+
+
 }
