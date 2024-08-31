@@ -1,1 +1,38 @@
-<p>add-task works!</p>
+<div class="task-add-container">
+  <h2>Add Task</h2>
+
+  <form [formGroup]="taskForm" (ngSubmit)="addTask()">
+    <div class="form-group">
+      <label for="task-title">Title:</label>
+      <input id="task-title" formControlName="title" placeholder="Task title" />
+      <app-error-message [control]="taskForm.get('title')"></app-error-message>
+
+    </div>
+
+    <div class="form-group">
+      <label for="task-description">Description:</label>
+      <textarea id="task-description" formControlName="description" placeholder="Task description"></textarea>
+      <app-error-message [control]="taskForm.get('description')"></app-error-message>
+
+    </div>
+
+    <div class="form-group">
+      <label for="task-due-date">Due Date:</label>
+      <input type="date" id="task-due-date" formControlName="dueDate" />
+      <app-error-message [control]="taskForm.get('dueDate')"></app-error-message>
+
+    </div>
+
+    <div class="form-group">
+      <label for="task-status">Status:</label>
+      <select id="task-status" formControlName="status">
+        <option value="pending">Pending</option>
+        <option value="in-progress">In Progress</option>
+        <option value="completed">Completed</option>
+      </select>
+      <app-error-message [control]="taskForm.get('status')"></app-error-message>
+
+    </div>
+    <button type="submit" class="btn" [disabled]="taskForm.invalid">Add Task</button>
+  </form>
+</div>

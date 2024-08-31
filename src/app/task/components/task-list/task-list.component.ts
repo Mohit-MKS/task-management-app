@@ -10,14 +10,33 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class TaskListComponent implements OnInit {
 
-  displayedColumns: string[] = ['title', 'description', 'status', 'dueDate', 'action'];
-
-  tasks: ITask[] = [];
+  taskTableColumns: string[] = ['title', 'description', 'status', 'dueDate', 'action'];
 
   data: ITask[] = [
     { title: 'Task 1', description: 'Description 1', status: 'pending', dueDate: new Date('2024-09-01') },
     { title: 'Task 2', description: 'Description 2', status: 'in-progress', dueDate: new Date('2024-09-05') },
     { title: 'Task 3', description: 'Description 3', status: 'completed', dueDate: new Date('2024-09-10') },
+    { title: 'Task 4', description: 'Description 4', status: 'pending', dueDate: new Date('2024-09-01') },
+    { title: 'Task 5', description: 'Description 5', status: 'in-progress', dueDate: new Date('2024-09-05') },
+    { title: 'Task 6', description: 'Description 6', status: 'completed', dueDate: new Date('2024-09-10') },
+    { title: 'Task 1', description: 'Description 1', status: 'pending', dueDate: new Date('2024-09-01') },
+    { title: 'Task 2', description: 'Description 2', status: 'in-progress', dueDate: new Date('2024-09-05') },
+    { title: 'Task 3', description: 'Description 3', status: 'completed', dueDate: new Date('2024-09-10') },
+    { title: 'Task 4', description: 'Description 4', status: 'pending', dueDate: new Date('2024-09-01') },
+    { title: 'Task 5', description: 'Description 5', status: 'in-progress', dueDate: new Date('2024-09-05') },
+    { title: 'Task 6', description: 'Description 6', status: 'completed', dueDate: new Date('2024-09-10') },
+    { title: 'Task 1', description: 'Description 1', status: 'pending', dueDate: new Date('2024-09-01') },
+    { title: 'Task 2', description: 'Description 2', status: 'in-progress', dueDate: new Date('2024-09-05') },
+    { title: 'Task 3', description: 'Description 3', status: 'completed', dueDate: new Date('2024-09-10') },
+    { title: 'Task 4', description: 'Description 4', status: 'pending', dueDate: new Date('2024-09-01') },
+    { title: 'Task 5', description: 'Description 5', status: 'in-progress', dueDate: new Date('2024-09-05') },
+    { title: 'Task 6', description: 'Description 6', status: 'completed', dueDate: new Date('2024-09-10') },
+    { title: 'Task 1', description: 'Description 1', status: 'pending', dueDate: new Date('2024-09-01') },
+    { title: 'Task 2', description: 'Description 2', status: 'in-progress', dueDate: new Date('2024-09-05') },
+    { title: 'Task 3', description: 'Description 3', status: 'completed', dueDate: new Date('2024-09-10') },
+    { title: 'Task 4', description: 'Description 4', status: 'pending', dueDate: new Date('2024-09-01') },
+    { title: 'Task 5', description: 'Description 5', status: 'in-progress', dueDate: new Date('2024-09-05') },
+    { title: 'Task 6', description: 'Description 6', status: 'completed', dueDate: new Date('2024-09-10') },
   ];
 
   taskTableDataSource = new MatTableDataSource<ITask>(this.data);
@@ -26,12 +45,10 @@ export class TaskListComponent implements OnInit {
   constructor(private _taskService: TaskService) { }
 
   ngOnInit() {
-    this.tasks = this._taskService.getTasks();
   }
 
   deleteTask(taskId: string) {
     this._taskService.deleteTask(taskId);
-    this.tasks = this._taskService.getTasks();
   }
 
 

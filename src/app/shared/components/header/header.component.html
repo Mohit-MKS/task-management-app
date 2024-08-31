@@ -7,10 +7,10 @@
         <img src="assets/images/default-user.svg" alt="User" class="user-image" />
       </div>
       <ul class="dropdown-menu" aria-labelledby="user-option-dropdown">
-        <li class="dropdown-item">
+        <li class="dropdown-item" title="Name">
           <p class="user-name">{{ (user|async).name }}</p>
         </li>
-        <li class="dropdown-item">
+        <li class="dropdown-item" title="Email">
           <p class="user-name">{{ (user|async).email }}</p>
         </li>
         <li class="dropdown-item" (click)="logout()">

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-task',
@@ -7,9 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddTaskComponent implements OnInit {
 
-  constructor() { }
+  taskForm = this._fb.group({
+    title: ['', Validators.required],
+    description: ['', Validators.required],
+    dueDate: ['', Validators.required],
+    status: ['pending', Validators.required]
+  });
+
+  constructor(private _fb: FormBuilder) { }
 
   ngOnInit(): void {
+  }
+
+  addTask() {
+    if (this.taskForm.valid) {
+      const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+      tasks.push(this.taskForm.value);
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+      this.taskForm.reset();
+      alert('Task added successfully!');
+    }
   }
 
 }

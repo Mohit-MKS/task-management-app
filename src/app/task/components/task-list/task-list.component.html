@@ -1,4 +1,8 @@
-<table mat-table [dataSource]="taskTableDataSource" class="table">
+<button type="button" class="btn btn-primary" title="Add new task" [routerLink]="['../add']">
+  <span class="material-icons"> assignment_add </span>
+</button>
+
+<table mat-table [dataSource]="taskTableDataSource" class="table mt-2">
 
   <!-- Title Column -->
   <ng-container matColumnDef="title">
@@ -34,6 +38,6 @@
   </ng-container>
 
   <!-- Header and Row Declarations -->
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-header-row *matHeaderRowDef="taskTableColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: taskTableColumns;"></tr>
 </table>
