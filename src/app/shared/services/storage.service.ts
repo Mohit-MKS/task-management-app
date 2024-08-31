@@ -7,15 +7,15 @@ export class StorageService {
 
   constructor() { }
 
-  setItem(item: any, key: string) {
+  static setItem(key: string, item: any) {
     localStorage.setItem(JSON.stringify(item), key)
   }
 
-  getItem(key: string) {
+  static getItem(key: string) {
     return JSON.parse(localStorage.getItem(key))
   }
 
-  deleteItem(key: string) {
+  static deleteItem(key: string) {
     localStorage.removeItem(key)
   }
 }

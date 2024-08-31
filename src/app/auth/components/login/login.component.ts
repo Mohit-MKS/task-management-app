@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   }
 
 
-  onSubmit() {
+  login() {
     if (this.loginForm.valid) {
       this._authService.login(this.loginForm.value);
     }

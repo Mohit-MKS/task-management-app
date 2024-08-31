@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  onSubmit() {
+  register() {
     if (this.registerForm.valid) {
       this._authService.register(this.registerForm.value);
     }
