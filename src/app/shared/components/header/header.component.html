@@ -1,3 +1,20 @@
 <header class="main-header">
   <span class="heading">Task Management</span>
+
+  <ng-container *ngIf="user?.email">
+    <div class="user-info dropdown">
+      <div class="user-dropdown-btn" id="user-option-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="assets/images/default-user.svg" alt="User" class="user-image" />
+      </div>
+      <ul class="dropdown-menu" aria-labelledby="user-option-dropdown">
+        <li class="dropdown-item">
+          <p class="user-name">{{ user.name }}</p>
+        </li>
+        <li class="dropdown-item">
+          <span class="material-icons cursor-pointer" (click)="logout()"> logout </span>
+        </li>
+      </ul>
+
+    </div>
+  </ng-container>
 </header>

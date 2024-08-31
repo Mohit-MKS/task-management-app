@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './auth/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'task-management-app';
+
+  isLoggedIn$ = this._authService.isLoggedIn()
+
+  constructor(private _authService: AuthService) { }
+
+
 }

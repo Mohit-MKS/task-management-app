@@ -2,15 +2,28 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round");
 @import "../node_modules/bootstrap/scss/bootstrap";
 
+:root {
+  --header-height: 48px;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+
+html,
 body {
+  height: 100%;
   background-color: #e0e0e0 !important;
 }
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
 
 ::-webkit-scrollbar {
   width: 8px;
@@ -36,4 +49,84 @@ body {
   font-size: 0.8rem;
   color: #dc3545;
   text-transform: capitalize;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+
+.table {
+  width: 100%;
+
+  &.mat-table {
+    border: none;
+  }
+
+  th {
+    background: #ededed;
+    border: none;
+    text-transform: capitalize;
+    font-weight: 600;
+    color: #333333;
+
+    &.mat-header-cell {
+      border: none;
+      text-align: center;
+      padding: 4px;
+      top: 0;
+      vertical-align: middle;
+      position: sticky;
+      z-index: 1;
+
+      &:first-of-type {
+        padding-left: 8px;
+        border-radius: 8px 0 0 8px;
+      }
+
+      &:last-of-type {
+        padding-right: 8px;
+        border-radius: 0 8px 8px 0;
+      }
+
+
+    }
+
+    &.mat-sort-header-sorted {
+      color: #000
+    }
+
+    .mat-sort-header-container {
+      justify-content: center;
+      margin-left: 18px;
+    }
+  }
+
+  td {
+    &.mat-cell {
+      &:first-of-type {
+        padding-left: 8px;
+      }
+
+      &:last-of-type {
+        padding-right: 8px;
+      }
+
+      font-weight: 500;
+      vertical-align: middle;
+      text-align: center;
+      padding: 4px 4px 0;
+    }
+
+  }
+
+  td,
+  th {
+    font-size: 0.85rem;
+
+    mat-label {
+      font-size: 0.85rem;
+    }
+  }
+
 }

@@ -1,8 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { IUser } from 'src/app/auth/models/auth.interfaces';
-import { StorageService } from '../../services/storage.service';
-import { Constants } from '../../utils/constants';
 
 @Component({
   selector: 'app-nav-menu',
@@ -11,16 +7,12 @@ import { Constants } from '../../utils/constants';
 })
 export class NavMenuComponent implements OnInit {
 
-  user: IUser = StorageService.getItem(Constants.LoginUserKey)
 
-  constructor(private _router: Router) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
-  logout() {
-    this._router.navigate(['/login']);
 
-  }
 
 }

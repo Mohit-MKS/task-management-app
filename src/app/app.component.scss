@@ -3,10 +3,11 @@
   height: 100vh;
 
   main {
-    height: calc(100vh - 102px);
+    height: calc(100vh - 48px);
     overflow-y: auto;
     scrollbar-width: thin;
     display: flex;
+    background: #fff;
 
     .content {
       margin-left: 250px;

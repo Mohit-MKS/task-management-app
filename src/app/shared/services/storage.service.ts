@@ -8,7 +8,7 @@ export class StorageService {
   constructor() { }
 
   static setItem(key: string, item: any) {
-    localStorage.setItem(JSON.stringify(item), key)
+    localStorage.setItem(key, JSON.stringify(item))
   }
 
   static getItem(key: string) {

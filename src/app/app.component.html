@@ -1,8 +1,8 @@
 <div class="bodyClass">
   <app-header></app-header>
   <main>
-    <app-nav-menu></app-nav-menu>
-    <div class="content">
+    <app-nav-menu *ngIf="isLoggedIn$ | async"></app-nav-menu>
+    <div class="content" [ngClass]="{'ms-0':!(isLoggedIn$ | async)}">
       <router-outlet></router-outlet>
     </div>
   </main>

@@ -1,28 +1,32 @@
 import { Injectable } from '@angular/core';
-import { ILoginRqst, IUser, IUsersObj } from '../models/auth.interfaces';
+import { ILoginRqst, IRegisterRqst, IUser, IUsersObj } from '../models/auth.interfaces';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { Constants } from 'src/app/shared/utils/constants';
 import { ToastrService } from 'ngx-toastr';
+import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private _toaster: ToastrService) { }
+  private _isLoggedIn$ = new BehaviorSubject<boolean>(false);
 
-  register(user: any) {
+  constructor(private _toaster: ToastrService, private _router: Router) { }
+
+  register(user: IRegisterRqst) {
     const users = StorageService.getItem(Constants.UsersKey) as IUsersObj;
     if (users) {
       if (!users[user.email]) {
-        StorageService.setItem(Constants.UsersKey, { ...users, [user.email]: { name: name, email: user.email } })
+        StorageService.setItem(Constants.UsersKey, { ...users, [user.email]: { name: user.name, email: user.email, password: user.password } })
       }
       else {
         this._toaster.error('User already registered')
       }
     }
     else {
-      StorageService.setItem(Constants.UsersKey, { [user.email]: { name: name, email: user.email } })
+      StorageService.setItem(Constants.UsersKey, { [user.email]: { name: user.name, email: user.email, password: user.password } })
     }
 
   }
@@ -32,7 +36,10 @@ export class AuthService {
     if (users && users[user.email]) {
       const userData = users[user.email]
       if (userData.password === user.password) {
-        StorageService.setItem(Constants.LoginUserKey, user)
+        const userDetail = { name: userData.name, email: userData.email }
+        StorageService.setItem(Constants.LoginUserKey, userDetail)
+        this._isLoggedIn$.next(true)
+        this._router.navigate(['dashboard'])
       }
       else {
         this._toaster.error('Invalid credential')
@@ -41,10 +48,19 @@ export class AuthService {
     else {
       this._toaster.error('User not found')
     }
+  }
 
+  logout() {
+    StorageService.deleteItem(Constants.LoginUserKey)
+    this._isLoggedIn$.next(false);
+    this._router.navigate(['auth', 'login']);
   }
 
   isLoggedIn() {
-    return !!StorageService.getItem(Constants.LoginUserKey);
+    const user = StorageService.getItem(Constants.LoginUserKey)
+    if (user) {
+      this._isLoggedIn$.next(true)
+    }
+    return this._isLoggedIn$.asObservable();
   }
 }
