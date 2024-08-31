@@ -43,4 +43,8 @@ export class AuthService {
     }
 
   }
+
+  isLoggedIn() {
+    return !!StorageService.getItem(Constants.LoginUserKey);
+  }
 }
