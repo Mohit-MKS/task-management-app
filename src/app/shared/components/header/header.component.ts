@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StorageService } from '../../services/storage.service';
-import { IUser } from 'src/app/auth/models/auth.interfaces';
-import { Constants } from '../../utils/constants';
+
 import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
@@ -10,7 +8,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  user: IUser = StorageService.getItem(Constants.LoginUserKey)
+  user = this._authService.getLoggedInUser()
 
 
   constructor(private _authService: AuthService) { }

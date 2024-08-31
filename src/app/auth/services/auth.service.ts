@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   private _isLoggedIn$ = new BehaviorSubject<boolean>(false);
+  private _loggedInUser$ = new BehaviorSubject<IUser>(null)
 
   constructor(private _toaster: ToastrService, private _router: Router) { }
 
@@ -38,6 +39,7 @@ export class AuthService {
       if (userData.password === user.password) {
         const userDetail = { name: userData.name, email: userData.email }
         StorageService.setItem(Constants.LoginUserKey, userDetail)
+        this._loggedInUser$.next(userDetail)
         this._isLoggedIn$.next(true)
         this._router.navigate(['dashboard'])
       }
@@ -50,15 +52,22 @@ export class AuthService {
     }
   }
 
+  getLoggedInUser() {
+    return this._loggedInUser$.asObservable()
+
+  }
+
   logout() {
     StorageService.deleteItem(Constants.LoginUserKey)
     this._isLoggedIn$.next(false);
+    this._loggedInUser$.next(null)
     this._router.navigate(['auth', 'login']);
   }
 
   isLoggedIn() {
     const user = StorageService.getItem(Constants.LoginUserKey)
     if (user) {
+      this._loggedInUser$.next(user)
       this._isLoggedIn$.next(true)
     }
     return this._isLoggedIn$.asObservable();
