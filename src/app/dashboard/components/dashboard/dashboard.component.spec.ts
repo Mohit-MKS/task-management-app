@@ -5,6 +5,8 @@ import { taskReducer } from 'src/app/task/store/task.reducer';
 import { StoreModule } from '@ngrx/store';
 import { By } from '@angular/platform-browser';
 import { ITask } from 'src/app/task/models/task.interfaces';
+import { StorageService } from 'src/app/shared/services/storage.service';
+import { Constants } from 'src/app/shared/utils/constants';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -24,6 +26,7 @@ describe('DashboardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
+    StorageService.deleteItem(Constants.TasksKey)
     fixture.detectChanges();
   });
 
