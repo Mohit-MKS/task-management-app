@@ -1,50 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { TaskService } from '../../services/task.service';
-import { ITask } from '../../models/task.interfaces';
+import { ITask, ITaskState, } from '../../models/task.interfaces';
 import { MatTableDataSource } from '@angular/material/table';
+import { Store } from '@ngrx/store';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss']
 })
-export class TaskListComponent implements OnInit {
 
-  taskTableColumns: string[] = ['title', 'description', 'status', 'dueDate', 'action'];
+export class TaskListComponent implements OnInit, AfterViewInit {
 
-  data: ITask[] = [
-    { title: 'Task 1', description: 'Description 1', status: 'pending', dueDate: new Date('2024-09-01') },
-    { title: 'Task 2', description: 'Description 2', status: 'in-progress', dueDate: new Date('2024-09-05') },
-    { title: 'Task 3', description: 'Description 3', status: 'completed', dueDate: new Date('2024-09-10') },
-    { title: 'Task 4', description: 'Description 4', status: 'pending', dueDate: new Date('2024-09-01') },
-    { title: 'Task 5', description: 'Description 5', status: 'in-progress', dueDate: new Date('2024-09-05') },
-    { title: 'Task 6', description: 'Description 6', status: 'completed', dueDate: new Date('2024-09-10') },
-    { title: 'Task 1', description: 'Description 1', status: 'pending', dueDate: new Date('2024-09-01') },
-    { title: 'Task 2', description: 'Description 2', status: 'in-progress', dueDate: new Date('2024-09-05') },
-    { title: 'Task 3', description: 'Description 3', status: 'completed', dueDate: new Date('2024-09-10') },
-    { title: 'Task 4', description: 'Description 4', status: 'pending', dueDate: new Date('2024-09-01') },
-    { title: 'Task 5', description: 'Description 5', status: 'in-progress', dueDate: new Date('2024-09-05') },
-    { title: 'Task 6', description: 'Description 6', status: 'completed', dueDate: new Date('2024-09-10') },
-    { title: 'Task 1', description: 'Description 1', status: 'pending', dueDate: new Date('2024-09-01') },
-    { title: 'Task 2', description: 'Description 2', status: 'in-progress', dueDate: new Date('2024-09-05') },
-    { title: 'Task 3', description: 'Description 3', status: 'completed', dueDate: new Date('2024-09-10') },
-    { title: 'Task 4', description: 'Description 4', status: 'pending', dueDate: new Date('2024-09-01') },
-    { title: 'Task 5', description: 'Description 5', status: 'in-progress', dueDate: new Date('2024-09-05') },
-    { title: 'Task 6', description: 'Description 6', status: 'completed', dueDate: new Date('2024-09-10') },
-    { title: 'Task 1', description: 'Description 1', status: 'pending', dueDate: new Date('2024-09-01') },
-    { title: 'Task 2', description: 'Description 2', status: 'in-progress', dueDate: new Date('2024-09-05') },
-    { title: 'Task 3', description: 'Description 3', status: 'completed', dueDate: new Date('2024-09-10') },
-    { title: 'Task 4', description: 'Description 4', status: 'pending', dueDate: new Date('2024-09-01') },
-    { title: 'Task 5', description: 'Description 5', status: 'in-progress', dueDate: new Date('2024-09-05') },
-    { title: 'Task 6', description: 'Description 6', status: 'completed', dueDate: new Date('2024-09-10') },
-  ];
+  @ViewChild(MatPaginator) taskTablePaginator!: MatPaginator;
 
-  taskTableDataSource = new MatTableDataSource<ITask>(this.data);
+  taskTableColumns: string[] = ['id', 'title', 'description', 'status', 'dueDate', 'action'];
+  taskTableDataSource = new MatTableDataSource<ITask>([]);
 
+  selectedTask: ITask;
 
-  constructor(private _taskService: TaskService) { }
+  constructor(private _taskService: TaskService, private _store: Store<ITaskState>) { }
 
   ngOnInit() {
+    this._store.select('tasks').subscribe((tasks) => {
+      this.taskTableDataSource.data = tasks
+    })
+  }
+
+  ngAfterViewInit(): void {
+    this.taskTableDataSource.paginator = this.taskTablePaginator
   }
 
   deleteTask(taskId: string) {
@@ -52,6 +37,8 @@ export class TaskListComponent implements OnInit {
   }
 
 
-  editTask(taskId: string) { }
+  editTask(task: ITask) {
+    this.selectedTask = task
+  }
 
 }

@@ -6,4 +6,9 @@ interface ITask {
   status: 'pending' | 'in-progress' | 'completed';
 }
 
-export { ITask }
+interface ITaskState {
+  tasks: ITask[];
+}
+
+
+export { ITask, ITaskState }

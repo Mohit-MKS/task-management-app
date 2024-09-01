@@ -18,8 +18,6 @@ export class ErrorMessageComponent {
   get errorMessage(): any {
     try {
       const currentControl = this.control as FormControl;
-      console.log('hiii', this.control);
-
       for (const propertyName in currentControl.errors) {
         if (
           currentControl.errors.hasOwnProperty(propertyName) &&

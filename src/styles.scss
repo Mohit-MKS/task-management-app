@@ -4,6 +4,7 @@
 
 :root {
   --header-height: 48px;
+  --min-table-width: 500px;
 }
 
 * {
@@ -63,78 +64,93 @@ body {
   border-bottom: 2px solid #ccc;
 }
 
+.table-container {
+  overflow-x: auto;
 
-.table {
-  width: 100%;
+  .table {
+    min-width: var(--min-table-width);
+    width: 100%;
 
-  &.mat-table {
-    border: none;
-  }
-
-  th {
-    background: #ededed;
-    border: none;
-    text-transform: capitalize;
-    font-weight: 600;
-    color: #333333;
-
-    &.mat-header-cell {
+    &.mat-table {
       border: none;
-      text-align: center;
-      padding: 4px;
-      top: 0;
-      vertical-align: middle;
-      position: sticky;
-      z-index: 1;
+    }
 
-      &:first-of-type {
-        padding-left: 8px;
-        border-radius: 8px 0 0 8px;
+    th {
+      background: #ededed;
+      border: none;
+      text-transform: capitalize;
+      font-weight: 600;
+      color: #333333;
+
+      &.mat-header-cell {
+        border: none;
+        text-align: center;
+        padding: 4px;
+        top: 0;
+        vertical-align: middle;
+        position: sticky;
+        z-index: 1;
+
+        &:first-of-type {
+          padding-left: 8px;
+          border-radius: 8px 0 0 8px;
+        }
+
+        &:last-of-type {
+          padding-right: 8px;
+          border-radius: 0 8px 8px 0;
+        }
+
+
       }
 
-      &:last-of-type {
-        padding-right: 8px;
-        border-radius: 0 8px 8px 0;
+      &.mat-sort-header-sorted {
+        color: #000
       }
 
+      .mat-sort-header-container {
+        justify-content: center;
+        margin-left: 18px;
+      }
+    }
+
+    td {
+      &.mat-cell {
+        &:first-of-type {
+          padding-left: 8px;
+        }
+
+        &:last-of-type {
+          padding-right: 8px;
+        }
+
+        font-weight: 500;
+        vertical-align: middle;
+        text-align: center;
+        padding: 4px 4px 0;
+      }
 
     }
 
-    &.mat-sort-header-sorted {
-      color: #000
-    }
-
-    .mat-sort-header-container {
-      justify-content: center;
-      margin-left: 18px;
-    }
-  }
-
-  td {
-    &.mat-cell {
-      &:first-of-type {
-        padding-left: 8px;
-      }
-
-      &:last-of-type {
-        padding-right: 8px;
-      }
-
-      font-weight: 500;
-      vertical-align: middle;
-      text-align: center;
-      padding: 4px 4px 0;
-    }
-
-  }
-
-  td,
-  th {
-    font-size: 0.85rem;
-
-    mat-label {
+    td,
+    th {
       font-size: 0.85rem;
+
+      mat-label {
+        font-size: 0.85rem;
+      }
     }
+
   }
 
+  .no-record {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 500;
+  }
+
+  mat-paginator {
+    min-width: var(--min-table-width);
+  }
 }
