@@ -30,9 +30,9 @@ export class AuthService {
     }
     else {
       StorageService.setItem(Constants.UsersKey, { [user.email]: { name: user.name, email: user.email, password: user.password } });
-      this._toaster.success('User registered successfully')
+      this._toaster.success('User registered successfully');
+      this._router.navigate(['auth', 'login'])
     }
-
   }
 
   login(user: ILoginRqst) {
@@ -63,7 +63,8 @@ export class AuthService {
   logout() {
     StorageService.deleteItem(Constants.LoginUserKey)
     this._isLoggedIn$.next(false);
-    this._loggedInUser$.next(null)
+    this._loggedInUser$.next(null);
+    this._toaster.success('Logged out successfully')
     this._router.navigate(['auth', 'login']);
   }
 
