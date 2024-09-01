@@ -7,7 +7,6 @@ import { AuthService } from './auth/services/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'task-management-app';
 
   isLoggedIn$ = this._authService.isLoggedIn()
 
