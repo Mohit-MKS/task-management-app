@@ -1,9 +1,10 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ITask, ITaskState, } from '../../models/task.interfaces';
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 import { MatPaginator } from '@angular/material/paginator';
 import { deleteTask } from '../../store/task.actions';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-task-list',
@@ -11,12 +12,13 @@ import { deleteTask } from '../../store/task.actions';
   styleUrls: ['./task-list.component.scss']
 })
 
-export class TaskListComponent implements OnInit, AfterViewInit {
+export class TaskListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild(MatPaginator) taskTablePaginator!: MatPaginator;
 
   taskTableColumns: string[] = ['id', 'title', 'description', 'status', 'dueDate', 'action'];
   taskTableDataSource = new MatTableDataSource<ITask>([]);
+  storeSubscription: Subscription
 
   selectedTask: ITask;
   deleteTaskId: string
@@ -24,13 +26,16 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   constructor(private _store: Store<ITaskState>) { }
 
   ngOnInit() {
-    this._store.select('tasks').subscribe((tasks) => {
+    this.storeSubscription = this._store.select('tasks').subscribe((tasks) => {
       this.taskTableDataSource.data = tasks
     })
   }
 
   ngAfterViewInit(): void {
     this.taskTableDataSource.paginator = this.taskTablePaginator
+  }
+  ngOnDestroy(): void {
+    this.storeSubscription.unsubscribe();
   }
 
   setDeleteTaskId(task: ITask) {

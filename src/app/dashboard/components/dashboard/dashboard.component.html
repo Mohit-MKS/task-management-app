@@ -1,3 +1,63 @@
 <header class="page-header">
   <span>Dashboard</span>
 </header>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 col-md-6">
+      <div class="row gap-2">
+        <div class="card col">
+          <div class="p-1 text-center">
+            <span class="material-icons" style="color: #1597ef; font-size: 2rem">
+              confirmation_number
+            </span>
+            <h4 class="card-subtitle text-muted">Total</h4>
+            <h4 class="fw-bold fs-3"> {{ totalCount }} </h4>
+          </div>
+        </div>
+
+        <div class="card col">
+          <div class="p-1 text-center">
+            <span class="material-icons" style="color: #25b578; font-size: 2rem">
+              confirmation_number
+            </span>
+            <h4 class="card-subtitle text-muted">Completed</h4>
+            <h4 class="fw-bold fs-3">{{ taskCount['completed'] || 0 }}</h4>
+          </div>
+        </div>
+
+        <div class="card col">
+          <div class="p-1 text-center">
+            <span class="material-icons" style="color: #ffa532; font-size: 2rem">
+              confirmation_number
+            </span>
+            <h4 class="card-subtitle text-muted">Inprogress</h4>
+            <h4 class="fw-bold fs-3">{{ taskCount['in-progress'] || 0 }}</h4>
+          </div>
+        </div>
+
+        <div class="card col">
+          <div class="p-1 text-center">
+            <span class="material-icons" style="color: #d12020; font-size: 2rem">
+              confirmation_number
+            </span>
+            <h4 class="card-subtitle text-muted">Pending</h4>
+            <h4 class="fw-bold fs-3">{{ taskCount['pending'] || 0 }}</h4>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-sm-12 col-md-6">
+      <div class="card" id="chartDiv">
+        <div class="card-body">
+          <apx-chart #taskChart id="chart" [series]="chartOptions.series" [chart]="chartOptions.chart"
+            [colors]="chartOptions.colors" [xaxis]="chartOptions.xaxis" [yaxis]="chartOptions.yaxis"
+            [dataLabels]="chartOptions.dataLabels" [grid]="chartOptions.grid" [title]="chartOptions.title"
+            [legend]="chartOptions.legend">
+          </apx-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

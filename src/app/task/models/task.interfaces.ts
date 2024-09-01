@@ -3,12 +3,14 @@ interface ITask {
   title: string;
   description: string;
   dueDate: Date;
-  status: 'pending' | 'in-progress' | 'completed';
+  status: TStatus
 }
+
+type TStatus = 'pending' | 'in-progress' | 'completed'
 
 interface ITaskState {
   tasks: ITask[];
 }
 
 
-export { ITask, ITaskState }
+export { ITask, ITaskState, TStatus }
