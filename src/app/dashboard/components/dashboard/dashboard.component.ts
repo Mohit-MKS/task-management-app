@@ -1,9 +1,8 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { ITask, ITaskState } from 'src/app/task/models/task.interfaces';
 import { IDashBoardChartOptions } from '../../models/dashboard.interfaces';
-import { ChartComponent } from 'ng-apexcharts';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,11 +11,11 @@ import { ChartComponent } from 'ng-apexcharts';
 })
 
 export class DashboardComponent implements OnInit, OnDestroy {
-  @ViewChild('taskChart', { static: true }) taskChart: ChartComponent;
 
   storeSubscription: Subscription
 
-  taskCount: { [key: string]: number } = { 'completed': 0, 'in-progress': 0, 'pending': 0 };
+  taskCountByStatus = { 'completed': 0, 'in-progress': 0, 'pending': 0 };
+  taskCountByDueDate = { 'due-today': 0, 'over-due': 0 };
   totalCount = 0;
 
   chartOptions: Partial<IDashBoardChartOptions>;
@@ -36,9 +35,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   calculateStatusWiseCount(tasks: ITask[]) {
+    const today = new Date();
+    today.setHours(5, 30, 0, 0);
     tasks.forEach((task) => {
       this.totalCount++;
-      this.taskCount[task.status]++;
+      this.taskCountByStatus[task.status]++;
+      const dueDate = new Date(task.dueDate)
+      if (dueDate.getTime() === today.getTime()) {
+        this.taskCountByDueDate['due-today']++
+      }
+      else if (dueDate.getTime() <= today.getTime()) {
+        this.taskCountByDueDate['over-due']++
+      }
 
     })
     this.renderChart()
@@ -46,7 +54,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   renderChart() {
     let chartData = []
-    Object.entries(this.taskCount).forEach(([key, value]) => {
+    Object.entries(this.taskCountByStatus).forEach(([key, value]) => {
       if (key === 'completed') {
         chartData.push({ x: key, y: value, fillColor: '#25b578' })
       }
@@ -64,13 +72,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   initializeChart() {
     this.chartOptions = {
-      legend: {
-        position: 'top',
-        horizontalAlign: 'right',
-        floating: true,
-        offsetY: -10,
-        offsetX: 0,
-      },
       series: [],
 
       chart: {
@@ -100,7 +101,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       grid: {
         padding: {
           top: 20,
-          right: 10,
+          right: 0,
           bottom: 0,
           left: 15,
         },
@@ -117,8 +118,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
           text: 'Number of Tasks',
         },
         labels: {
-          formatter: function (value) {
-            return value.toFixed(0); // Force labels to show as integers
+          minWidth: 20,
+          formatter: (value) => {
+            return value.toFixed(0);
           }
         },
       },
