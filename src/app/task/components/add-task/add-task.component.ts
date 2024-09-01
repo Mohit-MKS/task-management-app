@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ITask } from '../../models/task.interfaces';
 
 @Component({
   selector: 'app-add-task',
   templateUrl: './add-task.component.html',
   styleUrls: ['./add-task.component.scss']
 })
-export class AddTaskComponent implements OnInit {
+export class AddTaskComponent implements OnChanges {
+
+  @Input() task: ITask
 
   taskForm = this._fb.group({
     title: ['', Validators.required],
@@ -17,7 +20,7 @@ export class AddTaskComponent implements OnInit {
 
   constructor(private _fb: FormBuilder) { }
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
   }
 
   addTask() {

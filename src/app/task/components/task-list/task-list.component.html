@@ -1,4 +1,9 @@
-<button type="button" class="btn btn-primary" title="Add new task" [routerLink]="['../add']">
+<header class="page-header">
+  <span>Tasks</span>
+</header>
+
+<button type="button" class="btn btn-primary" title="Add new task" data-bs-toggle="modal"
+  data-bs-target="#addTaskModal">
   <span class="material-icons"> assignment_add </span>
 </button>
 
@@ -41,3 +46,16 @@
   <tr mat-header-row *matHeaderRowDef="taskTableColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: taskTableColumns;"></tr>
 </table>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <app-add-task></app-add-task>
+      </div>
+    </div>
+  </div>
+</div>
