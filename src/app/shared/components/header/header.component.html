@@ -1,7 +1,7 @@
 <header class="main-header">
   <span class="heading">Task Management</span>
 
-  <ng-container *ngIf="user|async">
+  <ng-container *ngIf="user | async">
     <div class="user-info dropdown">
       <div class="user-dropdown-btn" id="user-option-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
         <img src="assets/images/default-user.svg" alt="User" class="user-image" />
@@ -11,7 +11,7 @@
           <p class="user-name">{{ (user|async).name }}</p>
         </li>
         <li class="dropdown-item" title="Email">
-          <p class="user-name">{{ (user|async).email }}</p>
+          <p class="user-email">{{ (user|async).email }}</p>
         </li>
         <li class="dropdown-item" (click)="logout()">
           <span>Logout</span>

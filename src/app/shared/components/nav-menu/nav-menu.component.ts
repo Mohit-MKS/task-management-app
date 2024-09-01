@@ -13,6 +13,4 @@ export class NavMenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
-
 }
