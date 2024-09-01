@@ -21,13 +21,16 @@ export class AuthService {
     if (users) {
       if (!users[user.email]) {
         StorageService.setItem(Constants.UsersKey, { ...users, [user.email]: { name: user.name, email: user.email, password: user.password } })
+        this._toaster.success('User registered successfully');
+        this._router.navigate(['auth', 'login'])
       }
       else {
         this._toaster.error('User already registered')
       }
     }
     else {
-      StorageService.setItem(Constants.UsersKey, { [user.email]: { name: user.name, email: user.email, password: user.password } })
+      StorageService.setItem(Constants.UsersKey, { [user.email]: { name: user.name, email: user.email, password: user.password } });
+      this._toaster.success('User registered successfully')
     }
 
   }

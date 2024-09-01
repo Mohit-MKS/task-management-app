@@ -17,9 +17,9 @@ import { StoreModule } from '@ngrx/store';
     BrowserModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      timeOut: 1000,
+      timeOut: 2000,
       positionClass: 'toast-bottom-right',
-      maxOpened: 1,
+      maxOpened: 2,
       autoDismiss: true,
     }),
     AppRoutingModule,
